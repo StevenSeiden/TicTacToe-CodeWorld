@@ -1,5 +1,4 @@
 import Extras((<$>))
-import System.Random
 --import Prelude()
 
 -- Modify this function, so that it draws any possible configuration of a board
@@ -38,18 +37,12 @@ draw(state) = rectangle(-5,5)
   & translated(rectangle(-5,5),0,-5)
   & translated(rectangle(-5,5),0,5)
   
-  & translated(scaled(text(findMark(state#1)),5,5),-5,5)
-  & translated(scaled(text(findMark(state#2)),5,5),0,5)
-  & translated(scaled(text(findMark(state#3)),5,5),5,5)
-  
-  & translated(scaled(text(findMark(state#4)),5,5),-5,0)
-  & translated(scaled(text(findMark(state#5)),5,5),0,0)
-  & translated(scaled(text(findMark(state#6)),5,5),5,0)
-
-  & translated(scaled(text(findMark(state#7)),5,5),-5,-5)
-  & translated(scaled(text(findMark(state#8)),5,5),0,-5)
-  & translated(scaled(text(findMark(state#9)),5,5),5,-5)
-
+  & pictures(placeCell <$> [0..8])
+  where
+  placeCell(cell) = translated(scaled(text(findMark(state#(cell+1))),5,5)
+                             , (-5*remainder(cell,3))+5
+                             , (5*truncation(cell/3))-5
+                             )
 
   
 
